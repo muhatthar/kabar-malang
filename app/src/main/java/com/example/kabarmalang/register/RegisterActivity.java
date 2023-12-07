@@ -1,12 +1,14 @@
 package com.example.kabarmalang.register;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -50,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private boolean isPwVisible = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,14 +64,8 @@ public class RegisterActivity extends AppCompatActivity {
         et_repw = findViewById(R.id.daftar_repw);
         btn_daftar = findViewById(R.id.daftar_button);
         tv_login = findViewById(R.id.daftar_login);
-        mAuth = FirebaseAuth.getInstance();
 
         Typeface customFont = ResourcesCompat.getFont(this, R.font.satoshi_regular);
-
-        et_nama.addTextChangedListener(textWatcher);
-        et_repw.addTextChangedListener(textWatcher);
-        et_email.addTextChangedListener(textWatcher);
-        et_pw.addTextChangedListener(textWatcher);
 
         et_pw.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -149,9 +146,11 @@ public class RegisterActivity extends AppCompatActivity {
         };
 
         spannableStringBuilder.setSpan(clickableSpan, startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD), startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_login.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
         tv_login.setMovementMethod(LinkMovementMethod.getInstance());
+
+        mAuth = FirebaseAuth.getInstance();
 
         btn_daftar.setOnClickListener(v -> {
             register(et_email.getText().toString(), et_pw.getText().toString());
@@ -199,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
             result = false;
         }
 
-        return false;
+        return result;
     }
 
     public void register(String email, String password) {
@@ -240,30 +239,4 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    private TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String email = et_email.getText().toString().trim();
-            String nama = et_nama.getText().toString().trim();
-            String password = et_pw.getText().toString().trim();
-            String rePassword = et_repw.getText().toString().trim();
-            boolean isFormValid = !email.isEmpty() && !nama.isEmpty() && !password.isEmpty() && !rePassword.isEmpty();
-            btn_daftar.setEnabled(isFormValid);
-
-            if (isFormValid) {
-                btn_daftar.setEnabled(isFormValid);
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
 }

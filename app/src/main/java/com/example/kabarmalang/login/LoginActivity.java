@@ -12,11 +12,13 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,9 +61,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Typeface customFont = ResourcesCompat.getFont(this, R.font.satoshi_regular);
 
-        et_email.addTextChangedListener(textWatcher);
-        et_pw.addTextChangedListener(textWatcher);
-
         et_pw.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -94,22 +93,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        String oriLogin = getString(R.string.daftar);
-        String targetLogin ="Daftar";
-        int startIndex = oriLogin.indexOf(targetLogin);
-        int endIndex = startIndex + targetLogin.length();
+        String oriDaftar = getString(R.string.daftar);
+        String targetDaftar ="Daftar";
+        int startIndex = oriDaftar.indexOf(targetDaftar);
+        int endIndex = startIndex + targetDaftar.length();
 
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(oriLogin);
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(oriDaftar);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                Intent login = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(login);
+                Intent daftar = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(daftar);
             }
         };
 
         spannableStringBuilder.setSpan(clickableSpan, startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD), startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_daftar.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
         tv_daftar.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -118,12 +117,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        updateUI(currentUser);
+//    }
 
     public void updateUI(FirebaseUser user) {
         if (user != null) {
@@ -175,28 +174,4 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    private TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String email = et_email.getText().toString().trim();
-            String password = et_pw.getText().toString().trim();
-            boolean isFormValid = !email.isEmpty() && !password.isEmpty();
-            login_btn.setEnabled(isFormValid);
-
-            if (isFormValid) {
-                login_btn.setEnabled(isFormValid);
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
 }
