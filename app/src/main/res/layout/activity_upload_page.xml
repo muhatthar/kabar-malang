@@ -56,35 +56,27 @@
         >
 
         <LinearLayout
-            android:id="@+id/LL_Unggah_Foto"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="50dp"
-            android:paddingBottom="50dp"
-            android:paddingStart="120dp"
-            android:paddingEnd="120dp"
-            android:background="@drawable/upload_foto_bg"
-            >
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/Btn_Upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_upload_foto"
-            android:backgroundTint="@android:color/transparent"
-            />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/upload_image"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                app:shapeAppearanceOverlay="@style/roundedUploadImageViewRounded"
+                android:background="@drawable/dotted_bg"
+                android:src="@drawable/ic_upload_image"
+                android:scaleType="centerCrop"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"/>
 
-        <TextView
-            android:id="@+id/TV_UnggahFoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Unggah Foto"
-            android:textSize="20sp"
-            android:textColor="#1D232E"
-            android:fontFamily="@font/satoshi_medium"
-            />
+            <ImageButton
+                android:id="@+id/upload_map"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_upload_map"
+                android:background="@android:color/transparent"/>
 
         </LinearLayout>
 

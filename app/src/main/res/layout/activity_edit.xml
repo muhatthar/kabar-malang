@@ -56,33 +56,27 @@
         >
 
         <LinearLayout
-            android:id="@+id/LL_Unggah_Foto"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="50dp"
-            android:paddingBottom="50dp"
-            android:paddingStart="140dp"
-            android:paddingEnd="140dp"
-            android:background="@drawable/img_tomat"
-            >
-        <ImageButton
-            android:id="@+id/Btn_Upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_upFoto"
-            android:backgroundTint="@android:color/transparent"
-            app:tint="@color/white" />
-        <TextView
-            android:id="@+id/TV_UnggahFoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit Foto"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/satoshi_medium"
-            />
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/edit_image"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                app:shapeAppearanceOverlay="@style/roundedUploadImageViewRounded"
+                android:background="@drawable/berita_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_edit_image"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"/>
+
+            <ImageButton
+                android:id="@+id/edit_map"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_edit_map"
+                android:background="@android:color/transparent"/>
 
         </LinearLayout>
 
