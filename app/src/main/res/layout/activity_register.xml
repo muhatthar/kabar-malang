@@ -58,6 +58,7 @@
                     android:paddingVertical="12dp">
 
                     <EditText
+                        android:id="@+id/daftar_nama"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -95,6 +96,7 @@
                     android:paddingVertical="12dp">
 
                     <EditText
+                        android:id="@+id/daftar_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -132,6 +134,7 @@
                     android:paddingVertical="12dp">
 
                     <EditText
+                        android:id="@+id/daftar_pw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -170,6 +173,7 @@
                     android:paddingVertical="12dp">
 
                     <EditText
+                        android:id="@+id/daftar_repw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -194,6 +198,7 @@
                 android:textSize="14.75sp" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/daftar_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="38dp"
@@ -252,6 +257,7 @@
                 android:layout_marginTop="20dp">
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/daftar_google"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -288,6 +294,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/daftar_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
