@@ -14,6 +14,8 @@
     <color name="neutral_600">#475467</color>
     <color name="neutral_500">#667085</color>
     <color name="neutral_400">#98A2B3</color>
+    <color name="neutral_300">#D0D5DD</color>
+    <color name="neutral_200">#E3E8EF</color>
 
     <color name="primary_900">#00273C</color>
     <color name="primary_800">#003450</color>
