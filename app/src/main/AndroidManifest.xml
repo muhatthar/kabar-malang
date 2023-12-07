@@ -12,7 +12,7 @@
         android:theme="@style/Theme.KabarMalang.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".DetailActivity"
+            android:name=".detail.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".upload.UploadActivity"
