@@ -17,6 +17,9 @@
             android:label="@string/title_activity_edit"
             android:theme="@style/Theme.KabarMalang.NoActionBar" />
         <activity
+            android:name=".homepage.HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".register.RegisterActivity"
             android:exported="false" />
         <activity
