@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kabarmalang.R;
+import com.example.kabarmalang.homepage.HomeActivity;
 import com.example.kabarmalang.model.userModel;
 import com.example.kabarmalang.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -126,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent login = new Intent(LoginActivity.this, RegisterActivity.class);
+            Intent login = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(login);
         } else {
             Toast.makeText(this, "Lakukan Login terlebih dahulu", Toast.LENGTH_SHORT).show();
