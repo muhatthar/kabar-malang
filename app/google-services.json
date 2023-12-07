@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "543845674134",
+    "project_id": "kabar-malang",
+    "storage_bucket": "kabar-malang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543845674134:android:d1bc0fbb49b781e58aa6b7",
+        "android_client_info": {
+          "package_name": "com.example.kabarmalang"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7c4OMeN5_xQIt8iB3Fxgeurz3M7U5bV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
