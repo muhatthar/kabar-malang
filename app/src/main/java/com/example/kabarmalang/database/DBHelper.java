@@ -11,14 +11,14 @@ import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private Context context;
-    private static final String DATABASE_NAME = "KabarMalang.db";
-    private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "berita_details";
-    private static final String COLUMN_ID = "berita_id";
-    private static final String COLUMN_TITLE = "berita_title";
-    private static final String COLUMN_DESC = "berita_desc";
-    private static final String COLUMN_IMG = "berita_img";
+    public Context context;
+    public static final String DATABASE_NAME = "KabarMalang.db";
+    public static final int DATABASE_VERSION = 1;
+    public static final String TABLE_NAME = "berita_details";
+    public static final String COLUMN_ID = "berita_id";
+    public static final String COLUMN_TITLE = "berita_title";
+    public static final String COLUMN_DESC = "berita_desc";
+    public static final String COLUMN_IMG = "berita_img";
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
