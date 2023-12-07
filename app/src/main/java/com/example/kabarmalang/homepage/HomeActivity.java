@@ -1,7 +1,6 @@
 package com.example.kabarmalang.homepage;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,7 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.kabarmalang.R;
-import com.example.kabarmalang.UploadActivity;
+import com.example.kabarmalang.upload.UploadActivity;
 import com.example.kabarmalang.profil.ProfilFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
