@@ -3,4 +3,5 @@
 
     <string name="daftar"><font family="@font/satoshi_regular">Belum mempunyai akun? <b><font color="#0067A1" family="@font/satoshi_bold">Daftar</font></b></font></string>
     <string name="masuk"><font family="@font/satoshi_regular">Belum mempunyai akun? <b><font color="#D0A430" family="@font/satoshi_bold">Masuk</font></b></font></string>
+    <string name="terms"><font family="@font/satoshi_regular">Syarat &amp; Ketentuan</font></string>
 </resources>

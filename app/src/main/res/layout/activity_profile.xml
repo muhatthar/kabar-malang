@@ -237,7 +237,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/satoshi_bold"
                 android:textSize="16sp"
                 android:textColor="@color/black"
@@ -255,7 +254,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_member_profile"
+                    android:src="@drawable/ic_rating_profile"
                     android:layout_marginEnd="12dp">
 
                 </ImageView>
@@ -265,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/satoshi_regular"
-                    android:text="23 Desember 2023">
+                    android:text="Beri Rating">
 
                 </TextView>
 
@@ -290,13 +289,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingVertical="8dp"
-                android:layout_marginTop="8dp"
                 android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_member_profile"
+                    android:src="@drawable/ic_terms_condition_profile"
                     android:layout_marginEnd="12dp">
 
                 </ImageView>
@@ -306,7 +304,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/satoshi_regular"
-                    android:text="23 Desember 2023">
+                    android:text="@string/terms">
 
                 </TextView>
 
@@ -331,13 +329,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingVertical="8dp"
-                android:layout_marginTop="8dp"
                 android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_member_profile"
+                    android:src="@drawable/ic_privacy_profile"
                     android:layout_marginEnd="12dp">
 
                 </ImageView>
@@ -347,7 +344,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/satoshi_regular"
-                    android:text="23 Desember 2023">
+                    android:text="Kebijakan Privasi">
 
                 </TextView>
 
@@ -372,13 +369,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingVertical="8dp"
-                android:layout_marginTop="8dp"
                 android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_member_profile"
+                    android:src="@drawable/ic_help_profile"
                     android:layout_marginEnd="12dp">
 
                 </ImageView>
@@ -388,7 +384,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/satoshi_regular"
-                    android:text="23 Desember 2023">
+                    android:text="Pusat Bantuan">
 
                 </TextView>
 
@@ -413,13 +409,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingVertical="8dp"
-                android:layout_marginTop="8dp"
                 android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_member_profile"
+                    android:src="@drawable/ic_setting_profile"
                     android:layout_marginEnd="12dp">
 
                 </ImageView>
@@ -429,7 +424,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/satoshi_regular"
-                    android:text="23 Desember 2023">
+                    android:text="Pengaturan">
 
                 </TextView>
 
@@ -454,13 +449,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingVertical="8dp"
-                android:layout_marginTop="8dp"
                 android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_member_profile"
+                    android:src="@drawable/ic_partner_profile"
                     android:layout_marginEnd="12dp">
 
                 </ImageView>
@@ -470,7 +464,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/satoshi_regular"
-                    android:text="23 Desember 2023">
+                    android:text="Partner">
 
                 </TextView>
 
@@ -495,13 +489,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingVertical="8dp"
-                android:layout_marginTop="8dp"
                 android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_member_profile"
+                    android:src="@drawable/ic_logout_profile"
                     android:layout_marginEnd="12dp">
 
                 </ImageView>
@@ -511,7 +504,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/satoshi_regular"
-                    android:text="23 Desember 2023">
+                    android:text="Keluar"
+                    android:textColor="@color/error_600">
 
                 </TextView>
 
