@@ -4,7 +4,7 @@ public class userModel {
     private String nama;
     private String key;
 
-    public userModel(String nama, String key) {
+    public userModel(String nama) {
         this.nama = nama;
         this.key = key;
     }
