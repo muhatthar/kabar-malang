@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.LoginActivity">
+    tools:context=".login.LoginActivity"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/masuk_text"
@@ -58,6 +59,7 @@
                     android:paddingVertical="12dp">
 
                     <EditText
+                        android:id="@+id/login_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -65,6 +67,7 @@
                         android:hint="user@gmail.com"
                         android:inputType="textEmailAddress"
                         android:textColor="#101828"
+                        android:textColorHint="@color/neutral_400"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -96,6 +99,7 @@
                     android:paddingVertical="12dp">
 
                     <EditText
+                        android:id="@+id/login_pw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -103,6 +107,7 @@
                         android:fontFamily="@font/satoshi_regular"
                         android:hint="Kata sandi..."
                         android:inputType="textPassword"
+                        android:textColorHint="@color/neutral_400"
                         android:textColor="#101828"
                         android:textSize="14sp" />
 
@@ -141,6 +146,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="38dp"
@@ -199,9 +205,10 @@
                 android:layout_marginTop="20dp">
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/login_google"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@android:color/transparent"
                     android:drawableStart="@drawable/ic_google"
                     android:drawablePadding="13dp"
                     android:fontFamily="@font/satoshi_black"
@@ -235,13 +242,16 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/login_daftar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:text="@string/daftar"
                 android:textAlignment="center"
                 android:layout_marginBottom="50dp"
-                android:textColor="@color/neutral_800" />
+                android:fontFamily="@font/satoshi_regular"
+                android:textColor="@color/neutral_800"
+                android:textColorLink="#0067A1"/>
 
         </LinearLayout>
 
