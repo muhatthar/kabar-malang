@@ -1,13 +1,20 @@
 package com.example.kabarmalang.homepage;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.kabarmalang.R;
+import com.example.kabarmalang.UploadActivity;
+import com.example.kabarmalang.profil.ProfilFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
@@ -36,7 +43,47 @@ public class HomeActivity extends AppCompatActivity {
 
         selectedTextColor = homePageText.getCurrentTextColor();
 
-        
+        addButton.setOnClickListener(v -> {
+            Intent tambahBerita = new Intent(HomeActivity.this, UploadActivity.class);
+            startActivity(tambahBerita);
 
+            selectedTab = 2;
+        });
+
+        homePageLayout.setOnClickListener(v -> {
+            if (selectedTab != 1) {
+                profilPageImage.setImageResource(R.drawable.ic_profil);
+                profilPageText.setTextColor(getColor(R.color.neutral_400));
+
+                homePageImage.setImageResource(R.drawable.ic_home_solid);
+                homePageText.setTextColor(getColor(R.color.primary_500));
+
+                replaceFragment(new HomeFragment());
+
+                selectedTab = 1;
+            }
+        });
+
+        profilLayout.setOnClickListener(v -> {
+            if (selectedTab != 3) {
+                homePageImage.setImageResource(R.drawable.ic_home);
+                homePageText.setTextColor(getColor(R.color.neutral_400));
+
+                profilPageImage.setImageResource(R.drawable.ic_profil_solid);
+                profilPageText.setTextColor(getColor(R.color.primary_500));
+
+                replaceFragment(new ProfilFragment());
+
+                selectedTab = 3;
+            }
+        });
+
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+        fragmentTransaction.commit();
     }
 }
