@@ -1,4 +1,4 @@
-package com.example.kabarmalang;
+package com.example.kabarmalang.upload;
 
 import static com.example.kabarmalang.database.DBHelper.TABLE_NAME;
 
@@ -17,6 +17,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.example.kabarmalang.database.DBHelper;
 
 import java.io.ByteArrayOutputStream;
+
+import com.example.kabarmalang.R;
 
 public class UploadActivity extends AppCompatActivity {
 

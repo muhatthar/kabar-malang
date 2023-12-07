@@ -1,8 +1,10 @@
-package com.example.kabarmalang;
+package com.example.kabarmalang.edit;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.kabarmalang.R;
 
 public class EditActivity extends AppCompatActivity {
 
