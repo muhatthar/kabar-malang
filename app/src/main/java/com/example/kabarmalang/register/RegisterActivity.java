@@ -146,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
         };
 
         spannableStringBuilder.setSpan(clickableSpan, startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableStringBuilder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD), startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_login.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
         tv_login.setMovementMethod(LinkMovementMethod.getInstance());
 
