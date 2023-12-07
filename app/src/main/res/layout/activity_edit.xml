@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UploadActivity"
+    tools:context=".EditActivity"
     >
 
     <RelativeLayout
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/satoshi_bold"
-            android:text="Upload Berita"
+            android:text="Edit Berita"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="22sp" />
@@ -63,25 +63,24 @@
             android:gravity="center"
             android:paddingTop="50dp"
             android:paddingBottom="50dp"
-            android:paddingStart="120dp"
-            android:paddingEnd="120dp"
-            android:background="@drawable/upload_foto_bg"
+            android:paddingStart="140dp"
+            android:paddingEnd="140dp"
+            android:background="@drawable/img_tomat"
             >
-
         <ImageButton
             android:id="@+id/Btn_Upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_upFoto"
             android:backgroundTint="@android:color/transparent"
-            />
+            app:tint="@color/white" />
         <TextView
             android:id="@+id/TV_UnggahFoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Unggah Foto"
+            android:text="Edit Foto"
             android:textSize="20sp"
-            android:textColor="#1D232E"
+            android:textColor="@color/white"
             android:fontFamily="@font/satoshi_medium"
             />
 
@@ -118,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/satoshi_regular"
-                    android:hint="Masukkan Judul Berita"
+                    android:hint="Edit Judul Berita"
                     android:inputType="text"
                     android:textColor="#101828"
                     android:textColorHint="@color/neutral_400"
@@ -160,7 +159,7 @@
                     android:gravity="top"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/satoshi_regular"
-                    android:hint="Masukkan Deskripsi"
+                    android:hint="Edit Deskripsi"
                     android:inputType="textMultiLine"
                     android:textColor="#101828"
                     android:textColorHint="@color/neutral_400"
@@ -180,7 +179,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_user_form_bg"
         android:fontFamily="@font/satoshi_medium"
-        android:text="Submit"
+        android:text="Simpan"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18dp"
