@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kabarmalang.R;
 import com.example.kabarmalang.database.DBHelper;
+import com.example.kabarmalang.detail.DetailActivity;
 import com.example.kabarmalang.edit.EditActivity;
 import com.example.kabarmalang.model.beritaModel;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -60,10 +61,22 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
         holder.title.setText(beritaModel.getTitle());
         holder.date.setText(beritaModel.getDate());
 
+        holder.itemView.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            Intent detailBerita = new Intent(context, DetailActivity.class);
+            bundle.putInt("row_id", beritaModel.getBerita_id());
+            bundle.putString("title", beritaModel.getTitle());
+            bundle.putString("desc", beritaModel.getDesc());
+            bundle.putString("date", beritaModel.getDate());
+            bundle.putByteArray("img", beritaModel.getBeritaImage());
+            detailBerita.putExtra("beritaDetails", bundle);
+            context.startActivity(detailBerita);
+        });
+
         holder.btnEdit.setOnClickListener(v -> {
 
             Bundle bundle = new Bundle();
-            Intent editForm =new Intent(context, EditActivity.class);
+            Intent editForm = new Intent(context, EditActivity.class);
             bundle.putInt("row_id", beritaModel.getBerita_id());
             bundle.putString("title", beritaModel.getTitle());
             bundle.putString("desc", beritaModel.getDesc());
