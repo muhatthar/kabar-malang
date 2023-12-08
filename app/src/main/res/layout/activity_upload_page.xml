@@ -72,7 +72,7 @@
             android:id="@+id/Btn_Upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_upFoto"
+            android:src="@drawable/ic_upfoto"
             android:backgroundTint="@android:color/transparent"
             />
         <TextView
