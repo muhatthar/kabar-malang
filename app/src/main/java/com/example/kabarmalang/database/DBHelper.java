@@ -19,6 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TITLE = "berita_title";
     public static final String COLUMN_DESC = "berita_desc";
     public static final String COLUMN_IMG = "berita_img";
+    public static final String COLUMN_DATE = "berita_date";
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -29,6 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT, " +
                 COLUMN_DESC + " TEXT, " +
+                COLUMN_DATE + " DATE DEFAULT CURRENT_DATE, " +
                 COLUMN_IMG + " BLOB);";
         db.execSQL(query);
     }
@@ -39,60 +41,60 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addBerita(String title, String desc, int image) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_TITLE, title);
-        cv.put(COLUMN_DESC, desc);
-        cv.put(COLUMN_IMG, image);
-
-        long result = db.insert(TABLE_NAME, null, cv);
-        if (result == -1)
-            Toast.makeText(context, "Failed to Add",
-                    Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(context, "Added Successfully!",
-                    Toast.LENGTH_SHORT).show();
-
-    }
-
-    Cursor readAllData() {
-        String query = "SELECT * FROM " + TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
-        if(db != null) {
-            cursor = db.rawQuery(query, null);
-        }
-        return cursor;
-    }
-
-    public void updateData(String row_id, String title, String desc, int image) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_TITLE, title);
-        contentValues.put(COLUMN_DESC, desc);
-        contentValues.put(COLUMN_IMG, image);
-        long result = db.update(TABLE_NAME, contentValues, "berita_id=?", new
-                String[] {row_id});
-        if (result == -1)
-            Toast.makeText(context, "Failed to Update",
-                    Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(context, "Updated Successfully!",
-                    Toast.LENGTH_SHORT).show();
-    }
-
-    public void deleteData(String row_id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.delete(TABLE_NAME, "berita_id=?", new String[]
-                {row_id});
-        if (result == -1)
-            Toast.makeText(context, "Failed to Delete",
-                    Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(context, "Deleted Successfully!",
-                    Toast.LENGTH_SHORT).show();
-    }
+//    public void addBerita(String title, String desc, int image) {
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues cv = new ContentValues();
+//        cv.put(COLUMN_TITLE, title);
+//        cv.put(COLUMN_DESC, desc);
+//        cv.put(COLUMN_IMG, image);
+//
+//        long result = db.insert(TABLE_NAME, null, cv);
+//        if (result == -1)
+//            Toast.makeText(context, "Failed to Add",
+//                    Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(context, "Added Successfully!",
+//                    Toast.LENGTH_SHORT).show();
+//
+//    }
+//
+//    Cursor readAllData() {
+//        String query = "SELECT * FROM " + TABLE_NAME;
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = null;
+//        if(db != null) {
+//            cursor = db.rawQuery(query, null);
+//        }
+//        return cursor;
+//    }
+//
+//    public void updateData(String row_id, String title, String desc, int image) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(COLUMN_TITLE, title);
+//        contentValues.put(COLUMN_DESC, desc);
+//        contentValues.put(COLUMN_IMG, image);
+//        long result = db.update(TABLE_NAME, contentValues, "berita_id=?", new
+//                String[] {row_id});
+//        if (result == -1)
+//            Toast.makeText(context, "Failed to Update",
+//                    Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(context, "Updated Successfully!",
+//                    Toast.LENGTH_SHORT).show();
+//    }
+//
+//    public void deleteData(String row_id) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        long result = db.delete(TABLE_NAME, "berita_id=?", new String[]
+//                {row_id});
+//        if (result == -1)
+//            Toast.makeText(context, "Failed to Delete",
+//                    Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(context, "Deleted Successfully!",
+//                    Toast.LENGTH_SHORT).show();
+//    }
 }

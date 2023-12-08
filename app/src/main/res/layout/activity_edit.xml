@@ -168,7 +168,7 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/daftar_button"
+        android:id="@+id/btnSimpan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_user_form_bg"

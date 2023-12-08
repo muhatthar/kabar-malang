@@ -27,6 +27,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        replaceFragment(new HomeFragment());
+
         final LinearLayout homePageLayout = findViewById(R.id.home_page_layout);
         final LinearLayout addLayout = findViewById(R.id.add_layout);
         final LinearLayout profilLayout = findViewById(R.id.profil_layout);

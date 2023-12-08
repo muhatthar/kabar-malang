@@ -23,8 +23,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="Theme.KabarMalang.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.KabarMalang.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+<!--    <style name="Theme.KabarMalang.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+<!--    <style name="Theme.KabarMalang.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
     <style name="roundedRecycleViewImageViewRounded">
         <item name="cornerFamily">rounded</item>

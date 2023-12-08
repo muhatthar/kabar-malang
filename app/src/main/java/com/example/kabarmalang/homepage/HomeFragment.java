@@ -1,15 +1,25 @@
 package com.example.kabarmalang.homepage;
 
+import static com.example.kabarmalang.database.DBHelper.TABLE_NAME;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.kabarmalang.R;
-import com.google.android.material.imageview.ShapeableImageView;
+import com.example.kabarmalang.adapter.BeritaAdapter;
+import com.example.kabarmalang.database.DBHelper;
+import com.example.kabarmalang.model.beritaModel;
 
 import java.util.ArrayList;
 
@@ -28,6 +38,11 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    SQLiteDatabase sqLiteDatabase;
+    DBHelper db;
+    RecyclerView rvHome;
+    BeritaAdapter beritaAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,6 +79,33 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View homeView = inflater.inflate(R.layout.fragment_home, container, false);
+        rvHome = homeView.findViewById(R.id.rvBerita);
+        RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
+        rvHome.setLayoutManager(mLayout);
+        rvHome.setHasFixedSize(true);
+        rvHome.setItemAnimator(new DefaultItemAnimator());
+
+        db = new DBHelper(getContext());
+
+        displayData();
+        return homeView;
+    }
+
+    private void displayData() {
+        sqLiteDatabase = db.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + "", null);
+        ArrayList<beritaModel> beritaModels = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            int berita_id = cursor.getInt(0);
+            String title = cursor.getString(1);
+            String desc = cursor.getString(2);
+            String date = cursor.getString(3);
+            byte[] image = cursor.getBlob(4);
+            beritaModels.add(new beritaModel(berita_id, title, desc, date, image));
+        }
+        cursor.close();
+        beritaAdapter = new BeritaAdapter(getContext(), R.layout.item_berita, beritaModels, sqLiteDatabase);
+        rvHome.setAdapter(beritaAdapter);
     }
 }
