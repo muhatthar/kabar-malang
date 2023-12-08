@@ -33,18 +33,19 @@
                 android:layout_alignParentTop="true"
                 android:gravity="center_vertical">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/btnProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/profil_jubeng" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    android:src="@drawable/ic_avatar_profile" />
 
                 <TextView
                     android:id="@+id/halo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_toEndOf="@id/btnProfile"
+                    android:layout_toEndOf="@id/ivProfile"
                     android:fontFamily="@font/satoshi_bold"
                     android:text="Halo, User!"
                     android:textColor="@color/white"
@@ -77,6 +78,7 @@
         android:paddingHorizontal="16dp">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBerita"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             tools:listitem="@layout/item_berita" />
