@@ -28,7 +28,7 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/detail_image"
                     android:layout_width="match_parent"
-                    android:layout_height="272dp"
+                    android:layout_height="272dp~"
                     android:scaleType="centerCrop"
                     android:src="@drawable/berita_image"
                     app:shapeAppearanceOverlay="@style/roundedUploadImageViewRounded" />
