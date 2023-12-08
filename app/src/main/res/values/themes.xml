@@ -35,8 +35,14 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <style name="roundedDetailImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/search_bg</item>
         <item name="android:queryBackground">@null</item>
     </style>
+
 </resources>
