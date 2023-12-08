@@ -111,7 +111,7 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
                     sqLiteDatabase = db.getReadableDatabase();
                     long edit = sqLiteDatabase.delete(TABLE_NAME, "berita_id=" + beritaModel.getBerita_id(), null);
                     if (edit != -1) {
-                        Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Berhasil Menghapus", Toast.LENGTH_SHORT).show();
 
                         beritaModelArrayList.remove(position);
                         notifyDataSetChanged();
