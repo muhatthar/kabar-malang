@@ -16,7 +16,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,29 +28,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
-import com.example.kabarmalang.database.DBHelper;
-
-import java.io.ByteArrayOutputStream;
-
 import com.example.kabarmalang.R;
-import com.example.kabarmalang.edit.EditActivity;
+import com.example.kabarmalang.database.DBHelper;
+import com.example.kabarmalang.googleMaps.GoogleMapsActivity;
 import com.example.kabarmalang.homepage.HomeActivity;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.io.ByteArrayOutputStream;
 
 public class UploadActivity extends AppCompatActivity {
 
     DBHelper db;
     SQLiteDatabase sqLiteDatabase;
     EditText etTitle, etDesc;
-    ImageView btnBack;
+    ImageButton btnBack, upload_map;
+    TextView tvKordinat;
     ShapeableImageView imageBerita;
     AppCompatButton btnUpload;
     int id = 0;
 
+    private static final int MAP_REQUEST_CODE = 102;
     public static final int CAMERA_REQUEST = 100;
     public static final int STORAGE_REQUEST = 101;
+
+    private LatLng selectedLatLng;
 
     String[] cameraPermission;
     String[] storagePermission;
@@ -64,10 +70,17 @@ public class UploadActivity extends AppCompatActivity {
         imageBerita = findViewById(R.id.upload_image);
         btnUpload = findViewById(R.id.btnUpload);
         btnBack = findViewById(R.id.btnBack);
+        upload_map = findViewById(R.id.upload_map);
+        tvKordinat = findViewById(R.id.tv_kordinat);
 
         btnBack.setOnClickListener(v -> {
             Intent back = new Intent(UploadActivity.this, HomeActivity.class);
             startActivity(back);
+        });
+
+        upload_map.setOnClickListener(v -> {
+            Intent mapIntent = new Intent(UploadActivity.this, GoogleMapsActivity.class);
+            startActivityForResult(mapIntent, MAP_REQUEST_CODE);
         });
 
         btnUpload.setOnClickListener(v -> {
@@ -107,7 +120,6 @@ public class UploadActivity extends AppCompatActivity {
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         imagePick();
-
     }
 
     private Bitmap getBitmapFromImageView(ImageView imageView) {
@@ -225,11 +237,19 @@ public class UploadActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 Picasso.get().load(resultUri).into(imageBerita);
+            }
+        }
+
+        if (requestCode == MAP_REQUEST_CODE && resultCode == RESULT_OK) {
+            LatLng selectedLatLng = data.getParcelableExtra("selectedLatLng");
+            if (selectedLatLng != null) {
+                tvKordinat.setText("Latitude: " + selectedLatLng.latitude + ", Longitude: " + selectedLatLng.longitude);
             }
         }
     }
