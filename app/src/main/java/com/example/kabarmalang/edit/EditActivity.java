@@ -9,7 +9,10 @@ import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,22 +77,34 @@ public class EditActivity extends AppCompatActivity {
         }
 
         btnSimpan.setOnClickListener(v -> {
-            ContentValues cv = new ContentValues();
-            cv.put("berita_title", etTitle.getText().toString());
-            cv.put("berita_desc", etDesc.getText().toString());
-            cv.put("berita_img", ImageViewToByte(beritaImage));
 
-            sqLiteDatabase = db.getWritableDatabase();
-            long edit = sqLiteDatabase.update(TABLE_NAME, cv, "berita_id=" + id, null);
-            if (edit != -1) {
-                Toast.makeText(EditActivity.this, "Update Successfully", Toast.LENGTH_SHORT).show();
+            String getTitle = etTitle.getText().toString();
+            String getDesc = etDesc.getText().toString();
 
-                beritaImage.setImageResource(R.mipmap.ic_launcher);
-                etTitle.setText("");
-                etDesc.setText("");
+            if (getTitle.isEmpty()) {
+                etTitle.setError("Masukkan Judul Berita");
+            } else if (getDesc.isEmpty()) {
+                etDesc.setError("Masukkan Deskripsi Berita");
+            } else if (beritaImage.getDrawable() == null || getBitmapFromImageView(beritaImage) == null) {
+                Toast.makeText(EditActivity.this, "Pilih gambar terlebih dahulu", Toast.LENGTH_SHORT).show();
+            } else {
+                ContentValues cv = new ContentValues();
+                cv.put("berita_title", etTitle.getText().toString());
+                cv.put("berita_desc", etDesc.getText().toString());
+                cv.put("berita_img", ImageViewToByte(beritaImage));
 
-                Intent back2 = new Intent(EditActivity.this, HomeActivity.class);
-                startActivity(back2);
+                sqLiteDatabase = db.getWritableDatabase();
+                long edit = sqLiteDatabase.update(TABLE_NAME, cv, "berita_id=" + id, null);
+                if (edit != -1) {
+                    Toast.makeText(EditActivity.this, "Update Success", Toast.LENGTH_SHORT).show();
+
+                    beritaImage.setImageResource(R.mipmap.ic_launcher);
+                    etTitle.setText("");
+                    etDesc.setText("");
+
+                    Intent back2 = new Intent(EditActivity.this, HomeActivity.class);
+                    startActivity(back2);
+                }
             }
         });
 
@@ -99,8 +114,12 @@ public class EditActivity extends AppCompatActivity {
         imagePick();
     }
 
-
-
+    private Bitmap getBitmapFromImageView(ImageView imageView) {
+        if (imageView.getDrawable() instanceof BitmapDrawable) {
+            return ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        }
+        return null;
+    }
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void imagePick() {
         beritaImage.setOnClickListener(v -> {
@@ -148,11 +167,31 @@ public class EditActivity extends AppCompatActivity {
     }
 
     private byte[] ImageViewToByte(ImageView imageBerita){
-        Bitmap bitmap = ((BitmapDrawable) imageBerita.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
-        byte[] bytes = stream.toByteArray();
-        return bytes;
+        Drawable drawable = imageBerita.getDrawable();
+
+        if (drawable instanceof BitmapDrawable) {
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+            return stream.toByteArray();
+        } else if (drawable instanceof VectorDrawable) {
+            // Handle VectorDrawable conversion to a byte array if needed
+            // For example, you can convert it to a bitmap first
+            Bitmap bitmap = Bitmap.createBitmap(
+                    drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(),
+                    Bitmap.Config.ARGB_8888
+            );
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+            byte[] bytes = stream.toByteArray();
+            return bytes;
+        }
+        return new byte[0];
 
     }
 
@@ -168,7 +207,7 @@ public class EditActivity extends AppCompatActivity {
                     if (camera_accept && storage_accept) {
                         pickFromGallery();
                     } else {
-                        Toast.makeText(this, "Please enable camera and storage permission", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Hidupkan Akses Kamera & Storage", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -179,7 +218,7 @@ public class EditActivity extends AppCompatActivity {
                     if (storage_accept) {
                         pickFromGallery();
                     } else {
-                        Toast.makeText(this, "Please enable storage permission", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Hidupkan Akses Storage", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
