@@ -250,6 +250,7 @@ public class UploadActivity extends AppCompatActivity {
             LatLng selectedLatLng = data.getParcelableExtra("selectedLatLng");
             if (selectedLatLng != null) {
                 tvKordinat.setText("Latitude: " + selectedLatLng.latitude + ", Longitude: " + selectedLatLng.longitude);
+                upload_map.setImageResource(R.drawable.ic_success_map);
             }
         }
     }
