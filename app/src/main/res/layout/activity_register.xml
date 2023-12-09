@@ -65,7 +65,7 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/satoshi_regular"
                         android:hint="Nayla Iskandar"
-                        android:inputType="text"
+                        android:inputType="textCapWords"
                         android:textColor="#101828"
                         android:textColorHint="@color/neutral_400"
                         android:textSize="14sp" />

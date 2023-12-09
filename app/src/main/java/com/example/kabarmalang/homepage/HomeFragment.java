@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +20,14 @@ import com.example.kabarmalang.R;
 import com.example.kabarmalang.adapter.BeritaAdapter;
 import com.example.kabarmalang.database.DBHelper;
 import com.example.kabarmalang.model.beritaModel;
+import com.example.kabarmalang.model.userModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -29,6 +37,11 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    TextView tv_nama;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,12 +94,34 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_home, container, false);
         rvHome = homeView.findViewById(R.id.rvBerita);
+        tv_nama = homeView.findViewById(R.id.halo);
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         rvHome.setLayoutManager(mLayout);
         rvHome.setHasFixedSize(true);
         rvHome.setItemAnimator(new DefaultItemAnimator());
+        user = mAuth.getCurrentUser();
 
         db = new DBHelper(getContext());
+
+        if (user != null) {
+            String userId = user.getUid();
+
+            database.child("Users").child(userId).child("UserData").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        userModel user = snapshot.getValue(userModel.class);
+                        user.setKey(snapshot.getKey());
+                        tv_nama.setText("Halo, " + user.getNama() + "!");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
         displayData();
         return homeView;
