@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.kabarmalang.R;
-import com.example.kabarmalang.upload.UploadActivity;
 import com.example.kabarmalang.profil.ProfilFragment;
+import com.example.kabarmalang.upload.UploadActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
@@ -30,7 +30,6 @@ public class HomeActivity extends AppCompatActivity {
         replaceFragment(new HomeFragment());
 
         final LinearLayout homePageLayout = findViewById(R.id.home_page_layout);
-        final LinearLayout addLayout = findViewById(R.id.add_layout);
         final LinearLayout profilLayout = findViewById(R.id.profil_layout);
 
         final ImageView homePageImage = findViewById(R.id.iv_home);
