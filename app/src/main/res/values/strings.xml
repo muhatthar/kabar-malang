@@ -17,4 +17,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_google_maps">GoogleMapsActivity</string>
+
+    <string name="default_web_client_id">543845674134-3qlpo145qqhr72610vjoba9b798uengr.apps.googleusercontent.com</string>
 </resources>

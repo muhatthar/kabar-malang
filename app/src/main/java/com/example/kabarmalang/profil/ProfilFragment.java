@@ -1,15 +1,18 @@
 package com.example.kabarmalang.profil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.kabarmalang.R;
+import com.example.kabarmalang.login.LoginActivity;
 import com.example.kabarmalang.model.userModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +33,7 @@ public class ProfilFragment extends Fragment {
     TextView tv_nama, tv_jml_berita, tv_email;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    LinearLayout btnLogout;
     FirebaseUser user;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -81,7 +85,18 @@ public class ProfilFragment extends Fragment {
         tv_nama = view.findViewById(R.id.profil_name);
         tv_jml_berita = view.findViewById(R.id.profil_jml_berita);
         tv_email = view.findViewById(R.id.profil_email);
+        btnLogout = view.findViewById(R.id.btn_logout);
         user = mAuth.getCurrentUser();
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent logout = new Intent(getContext(), LoginActivity.class);
+                logout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(logout);
+            }
+        });
 
         if (user != null) {
             String userId = user.getUid();
