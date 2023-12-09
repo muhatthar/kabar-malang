@@ -1,6 +1,11 @@
 package com.example.kabarmalang.profil;
 
+import static com.example.kabarmalang.database.DBHelper.TABLE_NAME;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.kabarmalang.R;
+import com.example.kabarmalang.database.DBHelper;
 import com.example.kabarmalang.login.LoginActivity;
 import com.example.kabarmalang.model.userModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +41,8 @@ public class ProfilFragment extends Fragment {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     LinearLayout btnLogout;
     FirebaseUser user;
+    SQLiteDatabase sqLiteDatabase;
+    DBHelper db;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,6 +84,7 @@ public class ProfilFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,6 +96,17 @@ public class ProfilFragment extends Fragment {
         tv_email = view.findViewById(R.id.profil_email);
         btnLogout = view.findViewById(R.id.btn_logout);
         user = mAuth.getCurrentUser();
+
+        db = new DBHelper(getContext());
+
+        sqLiteDatabase = db.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, null );
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int beritaCount = cursor.getInt(0);
+            tv_jml_berita.setText(String.valueOf(beritaCount));
+            cursor.close();
+        }
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
