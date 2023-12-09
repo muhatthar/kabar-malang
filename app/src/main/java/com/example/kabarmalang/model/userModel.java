@@ -4,9 +4,12 @@ public class userModel {
     private String nama;
     private String key;
 
+    public userModel() {
+
+    }
+
     public userModel(String nama) {
         this.nama = nama;
-        this.key = key;
     }
 
     public String getNama() {

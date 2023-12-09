@@ -1,14 +1,23 @@
 package com.example.kabarmalang.profil;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.kabarmalang.R;
+import com.example.kabarmalang.model.userModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +25,12 @@ import com.example.kabarmalang.R;
  * create an instance of this fragment.
  */
 public class ProfilFragment extends Fragment {
+
+    View view;
+    TextView tv_nama, tv_jml_berita, tv_email;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +76,36 @@ public class ProfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profil, container, false);
+        view = inflater.inflate(R.layout.fragment_profil, container, false);
+
+        tv_nama = view.findViewById(R.id.profil_name);
+        tv_jml_berita = view.findViewById(R.id.profil_jml_berita);
+        tv_email = view.findViewById(R.id.profil_email);
+        user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            String userId = user.getUid();
+            String email = user.getEmail().toString();
+
+            database.child("Users").child(userId).child("UserData").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        userModel user = snapshot.getValue(userModel.class);
+                        user.setKey(snapshot.getKey());
+                        tv_nama.setText("Halo, " + user.getNama() + "!");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            tv_email.setText(email);
+        }
+
+        return view;
     }
 }
