@@ -22,4 +22,6 @@
 
     <string name="api_key">AIzaSyD0ZjoRy8TWscS10EjhDvE9x53vdDPtksQ</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD0ZjoRy8TWscS10EjhDvE9x53vdDPtksQ</string>
+
+    <string name="default_web_client_id">543845674134-3qlpo145qqhr72610vjoba9b798uengr.apps.googleusercontent.com</string>
 </resources>

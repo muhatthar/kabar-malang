@@ -65,7 +65,8 @@
                 android:id="@+id/btn_add"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:foreground="@drawable/btn_add_shape"/>
+                android:foreground="@drawable/btn_add_shape"
+                app:elevation="0dp"/>
 
         </LinearLayout>
 

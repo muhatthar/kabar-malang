@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,8 +21,17 @@ import com.example.kabarmalang.R;
 import com.example.kabarmalang.adapter.BeritaAdapter;
 import com.example.kabarmalang.database.DBHelper;
 import com.example.kabarmalang.model.beritaModel;
+import com.example.kabarmalang.model.userModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +39,14 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    TextView tv_nama;
+    SearchView sv_search;
+    ArrayList<beritaModel> beritaModels;
+    private List<beritaModel> filterBerita;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,21 +99,81 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_home, container, false);
         rvHome = homeView.findViewById(R.id.rvBerita);
+        tv_nama = homeView.findViewById(R.id.halo);
+        sv_search = homeView.findViewById(R.id.svHomeSearch);
         RecyclerView.LayoutManager mLayout = new LinearLayoutManager(getContext());
         rvHome.setLayoutManager(mLayout);
         rvHome.setHasFixedSize(true);
         rvHome.setItemAnimator(new DefaultItemAnimator());
+        user = mAuth.getCurrentUser();
 
         db = new DBHelper(getContext());
+
+        if (user != null) {
+            String userId = user.getUid();
+
+            database.child("Users").child(userId).child("UserData").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        userModel user = snapshot.getValue(userModel.class);
+                        user.setKey(snapshot.getKey());
+                        tv_nama.setText("Halo, " + user.getNama() + "!");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+        sv_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchBerita(newText);
+                return true;
+            }
+        });
 
         displayData();
         return homeView;
     }
 
+    private void searchBerita(String newText) {
+        filterBerita.clear();
+
+        if (newText.isEmpty()) {
+            filterBerita.addAll(beritaModels);
+        } else {
+            String filterPattern = newText.toLowerCase().trim();
+
+            for (beritaModel beritaModel : beritaModels) {
+                if (beritaModel.getTitle().toLowerCase().contains(newText)) {
+                    filterBerita.add(beritaModel);
+                }
+            }
+        }
+
+        beritaAdapter.filterList((ArrayList<beritaModel>) filterBerita);
+    }
+
     private void displayData() {
+        filterBerita = new ArrayList<>();
+
+        if (beritaModels != null) {
+            filterBerita.addAll(beritaModels);
+        }
+
         sqLiteDatabase = db.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + "", null);
-        ArrayList<beritaModel> beritaModels = new ArrayList<>();
+        beritaModels = new ArrayList<>();
         while (cursor.moveToNext()) {
             int berita_id = cursor.getInt(0);
             String title = cursor.getString(1);
