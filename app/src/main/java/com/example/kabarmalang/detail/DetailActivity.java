@@ -108,6 +108,8 @@ public class DetailActivity extends AppCompatActivity {
 
         btnClose.setOnClickListener(v -> {
             Intent close = new Intent(DetailActivity.this, HomeActivity.class);
+            startActivity(close);
+            finish();
         });
 
     }

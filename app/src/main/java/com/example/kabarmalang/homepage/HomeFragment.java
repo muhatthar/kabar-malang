@@ -189,4 +189,10 @@ public class HomeFragment extends Fragment {
         beritaAdapter = new BeritaAdapter(getContext(), R.layout.item_berita, beritaModels, sqLiteDatabase);
         rvHome.setAdapter(beritaAdapter);
     }
+
+    public boolean onBackPressed(){
+        getActivity().finish();
+
+        return true;
+    }
 }

@@ -154,7 +154,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                     });
                 } else {
                     Toast.makeText(this, "Lokasi tidak sesuai dengan tempat terpilih", Toast.LENGTH_SHORT).show();
-                    btnAddLocation = findViewById(R.id.btnTambahLokasi);
                     btnAddLocation.setOnClickListener(v -> {
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("selectedLatLng", location);

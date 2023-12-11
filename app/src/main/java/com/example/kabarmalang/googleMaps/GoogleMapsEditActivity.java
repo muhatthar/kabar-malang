@@ -119,11 +119,11 @@ public class GoogleMapsEditActivity extends FragmentActivity implements OnMapRea
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(location).title(getLatitude + ", " + getLongitude));
 
-            btnEditLocation = findViewById(R.id.btnTambahLokasi);
+            btnEditLocation = findViewById(R.id.btnEditLokasi);
             btnEditLocation.setOnClickListener(v -> {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("selectedLatLng", location);
-                resultIntent.putExtra("placeName", "Nama Spesifik Daerah Tidak diketahui");
+                resultIntent.putExtra("editSelectedLatLng", location);
+                resultIntent.putExtra("editPlaceName", "Nama Spesifik Daerah Tidak diketahui");
                 setResult(RESULT_OK, resultIntent);
                 finish();
             });
@@ -135,18 +135,17 @@ public class GoogleMapsEditActivity extends FragmentActivity implements OnMapRea
                 if (placeLatitude == location.latitude && placeLongitude == location.longitude) {
                     btnEditLocation.setOnClickListener(v -> {
                         Intent resultIntent = new Intent();
-                        resultIntent.putExtra("selectedLatLng", location);
-                        resultIntent.putExtra("placeName", selectedPlace.getName());
+                        resultIntent.putExtra("editSelectedLatLng", location);
+                        resultIntent.putExtra("editPlaceName", selectedPlace.getName());
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     });
                 } else {
                     Toast.makeText(this, "Lokasi tidak sesuai dengan tempat terpilih", Toast.LENGTH_SHORT).show();
-                    btnEditLocation = findViewById(R.id.btnTambahLokasi);
                     btnEditLocation.setOnClickListener(v -> {
                         Intent resultIntent = new Intent();
-                        resultIntent.putExtra("selectedLatLng", location);
-                        resultIntent.putExtra("placeName", "Nama Spesifik Daerah Tidak diketahui");
+                        resultIntent.putExtra("editSelectedLatLng", location);
+                        resultIntent.putExtra("editPlaceName", "Nama Spesifik Daerah Tidak diketahui");
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     });
