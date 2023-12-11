@@ -44,126 +44,145 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/relativeLayout"
-        >
-
-    <LinearLayout
-        android:id="@+id/LL_Main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_margin="24dp"
-        >
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-152dp">
 
         <LinearLayout
+            android:id="@+id/LL_Main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/edit_image"
-                android:layout_width="match_parent"
-                android:layout_height="155dp"
-                app:shapeAppearanceOverlay="@style/roundedUploadImageViewRounded"
-                android:background="@drawable/berita_image"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_edit_image"
-                android:layout_weight="1"
-                android:layout_marginEnd="10dp"/>
-
-            <ImageButton
-                android:id="@+id/edit_map"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_edit_map"
-                android:background="@android:color/transparent"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/satoshi_medium"
-                android:text="Judul Berita"
-                android:textColor="#101828"
-                android:textSize="16sp" />
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/LL_ET_Judul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/user_input_bg"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp">
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/ET_Judul"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/edit_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/berita_image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_edit_image"
+                    app:shapeAppearanceOverlay="@style/roundedUploadImageViewRounded" />
+
+                <ImageButton
+                    android:id="@+id/edit_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_edit_map" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/satoshi_regular"
-                    android:hint="Edit Judul Berita"
-                    android:inputType="text"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:text="Judul Berita"
                     android:textColor="#101828"
-                    android:textColorHint="@color/neutral_400"
                     android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/LL_ET_Judul"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/user_input_bg"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp">
+
+                    <EditText
+                        android:id="@+id/ET_Judul"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/satoshi_regular"
+                        android:hint="Edit Judul Berita"
+                        android:inputType="text"
+                        android:textColor="#101828"
+                        android:textColorHint="@color/neutral_400"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:text="Deskripsi"
+                    android:textColor="#101828"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/LL_ET_Deskripsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/user_input_bg"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp">
+
+                    <EditText
+                        android:id="@+id/ET_Deskripsi"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/satoshi_regular"
+                        android:gravity="top"
+                        android:hint="Edit Deskripsi"
+                        android:inputType="textMultiLine"
+                        android:textColor="#101828"
+                        android:textColorHint="@color/neutral_400"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Lokasi"
                 android:fontFamily="@font/satoshi_medium"
-                android:text="Deskripsi"
+                android:textSize="16sp"
                 android:textColor="#101828"
-                android:textSize="16sp" />
+                android:layout_marginTop="20dp"/>
 
-            <LinearLayout
-                android:id="@+id/LL_ET_Deskripsi"
+            <TextView
+                android:id="@+id/tv_lokasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/user_input_bg"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp">
+                android:layout_marginTop="20dp"/>
 
-                <EditText
-                    android:id="@+id/ET_Deskripsi"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:gravity="top"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/satoshi_regular"
-                    android:hint="Edit Deskripsi"
-                    android:inputType="textMultiLine"
-                    android:textColor="#101828"
-                    android:textColorHint="@color/neutral_400"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_kordinat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"/>
 
         </LinearLayout>
-
-    </LinearLayout>
 
     </ScrollView>
 

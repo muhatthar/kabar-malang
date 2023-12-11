@@ -1,26 +1,24 @@
 package com.example.kabarmalang.googleMaps;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import com.example.kabarmalang.R;
 import com.example.kabarmalang.databinding.ActivityGoogleMapsBinding;
-import com.example.kabarmalang.upload.UploadActivity;
+import com.example.kabarmalang.databinding.ActivityGoogleMapsEditBinding;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -29,31 +27,21 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.PlaceLikelihood;
-import com.google.android.libraries.places.api.model.RectangularBounds;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
 
-public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class GoogleMapsEditActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivityGoogleMapsBinding binding;
-    AppCompatButton btnAddLocation;
+    private ActivityGoogleMapsEditBinding binding;
+    AppCompatButton btnEditLocation;
     ImageButton btnCurrentLocation;
     private static final String TAG = "info :";
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -62,17 +50,18 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private LatLng selectedLatLngFromAutocomplete;
     private LatLng markerPosition;
     private Place selectedPlace;
+    private static final int MAP_REQUEST_CODE = 102;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityGoogleMapsBinding.inflate(getLayoutInflater());
+        binding = ActivityGoogleMapsEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         String apiKey = getString(R.string.api_key);
@@ -113,7 +102,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
             }
 
-
             @Override
             public void onError(@NonNull Status status) {
                 // TODO: Handle the error.
@@ -131,8 +119,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(location).title(getLatitude + ", " + getLongitude));
 
-            btnAddLocation = findViewById(R.id.btnTambahLokasi);
-            btnAddLocation.setOnClickListener(v -> {
+            btnEditLocation = findViewById(R.id.btnTambahLokasi);
+            btnEditLocation.setOnClickListener(v -> {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("selectedLatLng", location);
                 resultIntent.putExtra("placeName", "Nama Spesifik Daerah Tidak diketahui");
@@ -145,7 +133,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 double placeLongitude = selectedPlace.getLatLng().longitude;
 
                 if (placeLatitude == location.latitude && placeLongitude == location.longitude) {
-                    btnAddLocation.setOnClickListener(v -> {
+                    btnEditLocation.setOnClickListener(v -> {
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("selectedLatLng", location);
                         resultIntent.putExtra("placeName", selectedPlace.getName());
@@ -154,8 +142,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                     });
                 } else {
                     Toast.makeText(this, "Lokasi tidak sesuai dengan tempat terpilih", Toast.LENGTH_SHORT).show();
-                    btnAddLocation = findViewById(R.id.btnTambahLokasi);
-                    btnAddLocation.setOnClickListener(v -> {
+                    btnEditLocation = findViewById(R.id.btnTambahLokasi);
+                    btnEditLocation.setOnClickListener(v -> {
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("selectedLatLng", location);
                         resultIntent.putExtra("placeName", "Nama Spesifik Daerah Tidak diketahui");
@@ -171,21 +159,23 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-            FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-            fusedLocationProviderClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(currentLatLng).title("My Location"));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
-                                markerPosition = currentLatLng;
-                                handleButtonClick(markerPosition);
-                            }
-                        }
-                    });
 
+            Intent intent = getIntent();
+            if (intent != null) {
+                Bundle bundle = intent.getBundleExtra("beritaLatLng");
+                if (bundle != null) {
+                    String latitude = bundle.getString("lat");
+                    String longitude = bundle.getString("lng");
+
+                    if (latitude != null && longitude != null) {
+                        LatLng location = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+                        mMap.addMarker(new MarkerOptions().position(location).title("Disini"));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+                    }
+                }
+            }
+
+            FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
             btnCurrentLocation = findViewById(R.id.btnCurrentLocation);
             btnCurrentLocation.setOnClickListener(v-> {
                 fusedLocationProviderClient.getLastLocation()

@@ -102,7 +102,10 @@ public class HomeFragment extends Fragment {
             String desc = cursor.getString(2);
             String date = cursor.getString(3);
             byte[] image = cursor.getBlob(4);
-            beritaModels.add(new beritaModel(berita_id, title, desc, date, image));
+            String location = cursor.getString(5);
+            String latitude = cursor.getString(6);
+            String longitude = cursor.getString(7);
+            beritaModels.add(new beritaModel(berita_id, title, desc, date, image, location, latitude, longitude));
         }
         cursor.close();
         beritaAdapter = new BeritaAdapter(getContext(), R.layout.item_berita, beritaModels, sqLiteDatabase);

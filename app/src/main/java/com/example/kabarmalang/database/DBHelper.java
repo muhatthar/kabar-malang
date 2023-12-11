@@ -20,6 +20,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DESC = "berita_desc";
     public static final String COLUMN_IMG = "berita_img";
     public static final String COLUMN_DATE = "berita_date";
+    public static final String COLUMN_LOCATION = "berita_location";
+    public static final String COLUMN_LATITUDE = "berita_latitude";
+    public static final String COLUMN_LONGITUDE = "berita_longitude";
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -31,7 +34,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_TITLE + " TEXT, " +
                 COLUMN_DESC + " TEXT, " +
                 COLUMN_DATE + " DATE DEFAULT CURRENT_DATE, " +
-                COLUMN_IMG + " BLOB);";
+                COLUMN_IMG + " BLOB, " +
+                COLUMN_LOCATION + " TEXT, " +
+                COLUMN_LATITUDE + " TEXT, " +
+                COLUMN_LONGITUDE + " TEXT);";
         db.execSQL(query);
     }
 

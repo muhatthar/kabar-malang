@@ -26,6 +26,7 @@ import com.example.kabarmalang.R;
 import com.example.kabarmalang.database.DBHelper;
 import com.example.kabarmalang.detail.DetailActivity;
 import com.example.kabarmalang.edit.EditActivity;
+import com.example.kabarmalang.googleMaps.GoogleMapsEditActivity;
 import com.example.kabarmalang.model.beritaModel;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -69,6 +70,9 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
             bundle.putString("desc", beritaModel.getDesc());
             bundle.putString("date", beritaModel.getDate());
             bundle.putByteArray("img", beritaModel.getBeritaImage());
+            bundle.putString("loc", beritaModel.getLocation());
+            bundle.putString("lat", beritaModel.getLatitude());
+            bundle.putString("lng", beritaModel.getLongitude());
             detailBerita.putExtra("beritaDetails", bundle);
             context.startActivity(detailBerita);
         });
@@ -82,6 +86,9 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
             bundle.putString("desc", beritaModel.getDesc());
             bundle.putString("date", beritaModel.getDate());
             bundle.putByteArray("img", beritaModel.getBeritaImage());
+            bundle.putString("loc", beritaModel.getLocation());
+            bundle.putString("lat", beritaModel.getLatitude());
+            bundle.putString("lng", beritaModel.getLongitude());
             editForm.putExtra("beritaDatas", bundle);
             context.startActivity(editForm);
 
