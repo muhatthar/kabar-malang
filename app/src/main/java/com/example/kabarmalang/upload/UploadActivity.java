@@ -4,10 +4,13 @@ import static com.example.kabarmalang.database.DBHelper.TABLE_NAME;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -15,6 +18,7 @@ import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -45,7 +49,7 @@ public class UploadActivity extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     EditText etTitle, etDesc;
     ImageButton btnBack, upload_map;
-    TextView tvKordinat;
+    TextView tvKoordinat, tvLokasi;
     ShapeableImageView imageBerita;
     AppCompatButton btnUpload;
     int id = 0;
@@ -71,7 +75,8 @@ public class UploadActivity extends AppCompatActivity {
         btnUpload = findViewById(R.id.btnUpload);
         btnBack = findViewById(R.id.btnBack);
         upload_map = findViewById(R.id.upload_map);
-        tvKordinat = findViewById(R.id.tv_kordinat);
+        tvKoordinat = findViewById(R.id.tv_koordinat);
+        tvLokasi = findViewById(R.id.tv_lokasi);
 
         btnBack.setOnClickListener(v -> {
             Intent back = new Intent(UploadActivity.this, HomeActivity.class);
@@ -87,18 +92,32 @@ public class UploadActivity extends AppCompatActivity {
 
             String getTitle = etTitle.getText().toString();
             String getDesc = etDesc.getText().toString();
+            String getLocation = tvLokasi.getText().toString();
+            String getLatLng = tvKoordinat.getText().toString();
 
             if (getTitle.isEmpty()) {
                 etTitle.setError("Masukkan Judul Berita");
             } else if (getDesc.isEmpty()) {
                 etDesc.setError("Masukkan Deskripsi Berita");
+            } else if (getLatLng.isEmpty()) {
+                etDesc.setError("Masukkan Lokasi");
+            } else if (getLocation.isEmpty()) {
+                etDesc.setError("Masukkan Lokasi");
             } else if (imageBerita.getDrawable() == null || getBitmapFromImageView(imageBerita) == null) {
                 Toast.makeText(UploadActivity.this, "Pilih gambar terlebih dahulu", Toast.LENGTH_SHORT).show();
             } else {
+                String koordinat = tvKoordinat.getText().toString();
+                String[] koordinatSplit = koordinat.split(", ");
+                String latitude = koordinatSplit[0];
+                String longitude = koordinatSplit[1];
+
                 ContentValues cv = new ContentValues();
-                cv.put("berita_title", etTitle.getText().toString());
-                cv.put("berita_desc", etDesc.getText().toString());
+                cv.put("berita_title", getTitle);
+                cv.put("berita_desc", getDesc);
                 cv.put("berita_img", ImageViewToByte(imageBerita));
+                cv.put("berita_location", getLocation);
+                cv.put("berita_latitude", latitude);
+                cv.put("berita_longitude", longitude);
 
                 sqLiteDatabase = db.getWritableDatabase();
                 Long insert = sqLiteDatabase.insert(TABLE_NAME, null, cv);
@@ -108,12 +127,17 @@ public class UploadActivity extends AppCompatActivity {
                     imageBerita.setImageResource(R.mipmap.ic_launcher);
                     etTitle.setText("");
                     etDesc.setText("");
+                    tvLokasi.setText("");
+                    tvKoordinat.setText("");
 
                     Intent back2 = new Intent(UploadActivity.this, HomeActivity.class);
                     startActivity(back2);
                 }
             }
 
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            String storedTitle = sharedPreferences.getString("title", "");
+            String storedDesc = sharedPreferences.getString("desc", "");
         });
 
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -132,18 +156,8 @@ public class UploadActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void imagePick() {
         imageBerita.setOnClickListener(v -> {
-            int image = 0;
-            if (image == 0) {
-                if (!checkCameraPermission()) {
-                    requestCameraPermission();
-                } else {
-                    pickFromGallery();
-                }
-            } else if (image == 1) {
-                if (!checkStoragePermission()) {
-                    requestStoragePermission();
-                }
-                
+            if (!checkCameraPermission() || !checkStoragePermission()) {
+                requestPermissions(cameraPermission, CAMERA_REQUEST);
             } else {
                 pickFromGallery();
             }
@@ -202,7 +216,6 @@ public class UploadActivity extends AppCompatActivity {
         }
         return new byte[0];
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -248,9 +261,20 @@ public class UploadActivity extends AppCompatActivity {
 
         if (requestCode == MAP_REQUEST_CODE && resultCode == RESULT_OK) {
             LatLng selectedLatLng = data.getParcelableExtra("selectedLatLng");
+            String placeName = data.getStringExtra("placeName");
+
             if (selectedLatLng != null) {
-                tvKordinat.setText("Latitude: " + selectedLatLng.latitude + ", Longitude: " + selectedLatLng.longitude);
-                upload_map.setImageResource(R.drawable.ic_success_map);
+                String getLatitude = String.valueOf(selectedLatLng.latitude);
+                String getLongitude = String.valueOf(selectedLatLng.longitude);
+
+                tvKoordinat.setText(getLatitude + ", " + getLongitude);
+                tvLokasi.setText(placeName);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("title", etTitle.getText().toString());
+                editor.putString("desc", etDesc.getText().toString());
+                editor.apply();
             }
         }
     }

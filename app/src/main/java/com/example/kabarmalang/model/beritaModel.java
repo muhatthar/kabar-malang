@@ -6,13 +6,19 @@ public class beritaModel {
     private String desc;
     private String date;
     private byte[] beritaImage;
+    private String location;
+    private String latitude;
+    private String longitude;
 
-    public beritaModel(int berita_id, String title, String desc, String date, byte[] beritaImage) {
+    public beritaModel(int berita_id, String title, String desc, String date, byte[] beritaImage, String location, String latitude, String longitude) {
         this.berita_id = berita_id;
         this.title = title;
         this.desc = desc;
         this.date = date;
         this.beritaImage = beritaImage;
+        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getBerita_id() {
@@ -53,5 +59,29 @@ public class beritaModel {
 
     public void setBeritaImage(byte[] beritaImage) {
         this.beritaImage = beritaImage;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

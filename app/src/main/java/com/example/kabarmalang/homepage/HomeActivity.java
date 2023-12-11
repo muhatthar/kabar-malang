@@ -86,4 +86,25 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentContainer, fragment);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (selectedTab == 1) {
+            finishAffinity();
+        } else {
+            if (!handleFragmentBackPressed()) {
+                super.onBackPressed();
+            }
+        }
+    }
+
+    private boolean handleFragmentBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+
+        if (fragment instanceof HomeFragment) {
+            return ((HomeFragment) fragment).onBackPressed();
+        }
+
+        return false;
+    }
 }

@@ -164,7 +164,22 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_kordinat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lokasi"
+            android:fontFamily="@font/satoshi_medium"
+            android:textSize="16sp"
+            android:textColor="#101828"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_lokasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_koordinat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"/>

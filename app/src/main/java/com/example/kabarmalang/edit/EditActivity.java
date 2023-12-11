@@ -4,7 +4,9 @@ import static com.example.kabarmalang.database.DBHelper.TABLE_NAME;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -17,7 +19,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,8 +33,10 @@ import androidx.core.content.ContextCompat;
 
 import com.example.kabarmalang.R;
 import com.example.kabarmalang.database.DBHelper;
+import com.example.kabarmalang.googleMaps.GoogleMapsEditActivity;
 import com.example.kabarmalang.homepage.HomeActivity;
 import com.example.kabarmalang.upload.UploadActivity;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -40,11 +46,14 @@ import java.io.ByteArrayOutputStream;
 public class EditActivity extends AppCompatActivity {
 
     EditText etTitle, etDesc;
+    TextView tvLokasi, tvKoordinat;
+    ImageButton editLocation;
     AppCompatButton btnSimpan;
     ShapeableImageView beritaImage;
     SQLiteDatabase sqLiteDatabase;
     DBHelper db;
     int id = 0;
+    private static final int MAP_REQUEST_CODE = 102;
     public static final int CAMERA_REQUEST = 100;
     public static final int STORAGE_REQUEST = 101;
     String[] cameraPermission;
@@ -59,8 +68,11 @@ public class EditActivity extends AppCompatActivity {
 
         etTitle = findViewById(R.id.ET_Judul);
         etDesc = findViewById(R.id.ET_Deskripsi);
+        tvLokasi = findViewById(R.id.tv_lokasi);
+        tvKoordinat = findViewById(R.id.tv_kordinat);
         btnSimpan = findViewById(R.id.btnSimpan);
         beritaImage = findViewById(R.id.edit_image);
+        editLocation = findViewById(R.id.edit_map);
 
         if (getIntent().getBundleExtra("beritaDatas") != null) {
             Bundle bundle = getIntent().getBundleExtra("beritaDatas");
@@ -69,29 +81,64 @@ public class EditActivity extends AppCompatActivity {
             String desc = bundle.getString("desc");
             String date = bundle.getString("date");
             byte[] bytes = bundle.getByteArray("img");
+            String location = bundle.getString("loc");
+            String latitude = bundle.getString("lat");
+            String longitude = bundle.getString("lng");
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
             etTitle.setText(title);
             etDesc.setText(desc);
+            tvLokasi.setText(location);;
+            tvKoordinat.setText(latitude + ", "+ longitude);
             beritaImage.setImageBitmap(bitmap);
         }
+
+
+
+        editLocation.setOnClickListener(v-> {
+            String koordinat = tvKoordinat.getText().toString();
+            String[] koordinatSplit = koordinat.split(", ");
+            String latitude = koordinatSplit[0];
+            String longitude = koordinatSplit[1];
+
+            Bundle bundle = new Bundle();
+            Intent editMap = new Intent(EditActivity.this, GoogleMapsEditActivity.class);
+            bundle.putString("lat", latitude);
+            bundle.putString("lng", longitude);
+            editMap.putExtra("beritaLatLng", bundle);
+            startActivityForResult(editMap, MAP_REQUEST_CODE);
+        });
 
         btnSimpan.setOnClickListener(v -> {
 
             String getTitle = etTitle.getText().toString();
             String getDesc = etDesc.getText().toString();
+            String getLocation = tvLokasi.getText().toString();
+            String getKoordinat = tvKoordinat.getText().toString();
 
             if (getTitle.isEmpty()) {
                 etTitle.setError("Masukkan Judul Berita");
             } else if (getDesc.isEmpty()) {
                 etDesc.setError("Masukkan Deskripsi Berita");
+            } else if (getLocation.isEmpty()) {
+                etDesc.setError("Masukkan Lokasi");
+            } else if (getKoordinat.isEmpty()) {
+                etDesc.setError("Masukkan Lokasi");
             } else if (beritaImage.getDrawable() == null || getBitmapFromImageView(beritaImage) == null) {
                 Toast.makeText(EditActivity.this, "Pilih gambar terlebih dahulu", Toast.LENGTH_SHORT).show();
             } else {
+                String koordinat = tvKoordinat.getText().toString();
+                String[] koordinatSplit = koordinat.split(", ");
+                String latitude = koordinatSplit[0];
+                String longitude = koordinatSplit[1];
+
                 ContentValues cv = new ContentValues();
-                cv.put("berita_title", etTitle.getText().toString());
-                cv.put("berita_desc", etDesc.getText().toString());
+                cv.put("berita_title", getTitle);
+                cv.put("berita_desc", getDesc);
                 cv.put("berita_img", ImageViewToByte(beritaImage));
+                cv.put("berita_location", getLocation);
+                cv.put("berita_latitude", latitude);
+                cv.put("berita_longitude", longitude);
 
                 sqLiteDatabase = db.getWritableDatabase();
                 long edit = sqLiteDatabase.update(TABLE_NAME, cv, "berita_id=" + id, null);
@@ -101,6 +148,8 @@ public class EditActivity extends AppCompatActivity {
                     beritaImage.setImageResource(R.mipmap.ic_launcher);
                     etTitle.setText("");
                     etDesc.setText("");
+                    tvLokasi.setText("");
+                    tvKoordinat.setText("");
 
                     Intent back2 = new Intent(EditActivity.this, HomeActivity.class);
                     startActivity(back2);
@@ -234,6 +283,25 @@ public class EditActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 Picasso.get().load(resultUri).into(beritaImage);
+            }
+        }
+
+        if (requestCode == MAP_REQUEST_CODE && resultCode == RESULT_OK) {
+            LatLng editSelectedLatLng = data.getParcelableExtra("editSelectedLatLng");
+            String placeName = data.getStringExtra("editPlaceName");
+
+            if (editSelectedLatLng != null) {
+                String getLatitude = String.valueOf(editSelectedLatLng.latitude);
+                String getLongitude = String.valueOf(editSelectedLatLng.longitude);
+
+                tvKoordinat.setText(getLatitude + ", " + getLongitude);
+                tvLokasi.setText(placeName);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("title", etTitle.getText().toString());
+                editor.putString("desc", etDesc.getText().toString());
+                editor.apply();
             }
         }
     }
