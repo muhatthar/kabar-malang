@@ -30,6 +30,7 @@ import com.example.kabarmalang.model.beritaModel;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaViewHolder> {
     private Context context;
@@ -143,6 +144,11 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }
+    }
+
+    public void filterList(ArrayList<beritaModel> filterBerita) {
+        beritaModelArrayList = filterBerita;
+        notifyDataSetChanged();
     }
 }
 
