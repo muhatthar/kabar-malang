@@ -18,12 +18,13 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
     <style name="Theme.KabarMalang.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="Theme.KabarMalang.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.KabarMalang.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+<!--    <style name="Theme.KabarMalang.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+<!--    <style name="Theme.KabarMalang.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
     <style name="roundedRecycleViewImageViewRounded">
         <item name="cornerFamily">rounded</item>
@@ -35,8 +36,14 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <style name="roundedDetailImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/search_bg</item>
         <item name="android:queryBackground">@null</item>
     </style>
+
 </resources>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".detail.DetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="272dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/berita_image"
+                    app:shapeAppearanceOverlay="@style/roundedUploadImageViewRounded" />
+
+                <ImageButton
+                    android:id="@+id/btnClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/detail_image"
+                    android:layout_alignEnd="@+id/detail_image"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_close_detail"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/detail_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="60dp"
+                        android:text="SMAN 1 Malang mendapatkan Juara 1 pada Ajang OSN Matematika"
+                        android:fontFamily="@font/satoshi_bold"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"/>
+
+                    <ImageButton
+                        android:id="@+id/detail_map"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_map"
+                        android:background="@android:color/transparent"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/detail_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User1 - Media.com"
+                    android:fontFamily="@font/satoshi_regular"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="14dp"/>
+
+                <TextView
+                    android:id="@+id/detail_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="24 Desember 2023"
+                    android:fontFamily="@font/satoshi_regular"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="14dp"/>
+
+                <TextView
+                    android:id="@+id/detail_deskripsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pemilihan Mahasiswa Berprestasi (MAWAPRES) adalah agenda tahunan yang diselenggarakan oleh Kementerian Riset, Teknologi, dan Pendidikan Tinggi (KEMENRISTEKDIKTI). Universitas Brawijaya setiap tahunnya mengadakan pemilihan MAWAPRES yang delegasinya berasal dari setiap fakultas. Setiap fakultas melakukan pemilihan untuk menentukan MAWAPRES utamanya. Tahun ini, FILKOM memiliki 10 kandidat yang akan memperebutkan gelar MAWAPRES Utama FILKOM. MAWAPRES Utama FILKOM akan mewakili fakultas ke ajang pemilihan MAWAPRES tingkat universitas. \n\nPemilihan MAWAPRES FILKOM diselenggarakan oleh Badan Eksekutif Mahasiswa (BEM) FILKOM. Pada tahun 2019, Terdapat dua kandidat yang merupakan anggota K-RISMA. Kedua kandidat tersebut adalah Diva Fardiana Risa (TIF’16) dan Muhammad Syarifuddin (PTI’17). Setelah melalui beberapa tahapan seleksi, presentasi final dilakukan pada hari Senin, 28 Januari 2019 di Gedung F Lt. 1. "
+                    android:fontFamily="@font/satoshi_regular"
+                    android:textSize="12sp"
+                    android:textColor="#414141"
+                    android:layout_marginTop="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="16sp"
+                    android:textColor="#101828"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/tv_lokasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/tv_koordinat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

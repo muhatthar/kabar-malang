@@ -15,5 +15,13 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="description_detail">Pemilihan Mahasiswa Berprestasi (MAWAPRES) adalah agenda tahunan yang diselenggarakan oleh Kementerian Riset, Teknologi, dan Pendidikan Tinggi (KEMENRISTEKDIKTI). Universitas Brawijaya setiap tahunnya mengadakan pemilihan MAWAPRES yang delegasinya berasal dari setiap fakultas. Setiap fakultas melakukan pemilihan untuk menentukan MAWAPRES utamanya. Tahun ini, FILKOM memiliki 10 kandidat yang akan memperebutkan gelar MAWAPRES Utama FILKOM. MAWAPRES Utama FILKOM akan mewakili fakultas ke ajang pemilihan MAWAPRES tingkat universitas. Pemilihan MAWAPRES FILKOM diselenggarakan oleh Badan Eksekutif Mahasiswa (BEM) FILKOM. Pada tahun 2019, Terdapat dua kandidat yang merupakan anggota K-RISMA. Kedua kandidat tersebut adalah Diva Fardiana Risa (TIF’16) dan Muhammad Syarifuddin (PTI’17). Setelah melalui beberapa tahapan seleksi, presentasi final dilakukan pada hari Senin, 28 Januari 2019 di Gedung F Lt. 1.</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_google_maps">GoogleMapsActivity</string>
+    <string name="title_activity_google_edit_maps">GoogleMapsEditActivity</string>
+    <string name="title_activity_google_detail_maps">GoogleMapsDetailActivity</string>
+
+    <string name="api_key">AIzaSyD0ZjoRy8TWscS10EjhDvE9x53vdDPtksQ</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD0ZjoRy8TWscS10EjhDvE9x53vdDPtksQ</string>
+
+    <string name="default_web_client_id">543845674134-3qlpo145qqhr72610vjoba9b798uengr.apps.googleusercontent.com</string>
 </resources>

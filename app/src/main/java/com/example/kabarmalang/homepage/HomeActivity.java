@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.kabarmalang.R;
-import com.example.kabarmalang.upload.UploadActivity;
 import com.example.kabarmalang.profil.ProfilFragment;
+import com.example.kabarmalang.upload.UploadActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
@@ -27,8 +27,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        replaceFragment(new HomeFragment());
+
         final LinearLayout homePageLayout = findViewById(R.id.home_page_layout);
-        final LinearLayout addLayout = findViewById(R.id.add_layout);
         final LinearLayout profilLayout = findViewById(R.id.profil_layout);
 
         final ImageView homePageImage = findViewById(R.id.iv_home);
@@ -84,5 +85,26 @@ public class HomeActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (selectedTab == 1) {
+            finishAffinity();
+        } else {
+            if (!handleFragmentBackPressed()) {
+                super.onBackPressed();
+            }
+        }
+    }
+
+    private boolean handleFragmentBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+
+        if (fragment instanceof HomeFragment) {
+            return ((HomeFragment) fragment).onBackPressed();
+        }
+
+        return false;
     }
 }
